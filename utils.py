@@ -35,7 +35,7 @@ def normalize_time(df):
     
     df['normalized_time'] = df['second_passed'] / (4 * QUARTER_IN_SEC)
     # Remove the intermediate columns if they're not needed in the final output
-    df = df.drop(columns=[['current_quarter_seconds_passed', 'second_passed']])
+    # df = df.drop(columns=[['current_quarter_seconds_passed', 'second_passed']])
 
     return df
 
@@ -77,4 +77,5 @@ def clean_nba_data(input_df):
     df = normalize_time(input_df)
     df = actual_results(df)
     df = df[df["Quarter"] <= 4] # remove overtime
-    return df[["game_num", "normalized_time", "home_WP", "actual_result"]].drop_duplicates()
+    df = df[["game_num", "normalized_time", "home_WP", "actual_result"]].drop_duplicates()
+    return df
