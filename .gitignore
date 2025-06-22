@@ -1,3 +1,5 @@
 .marscode
 
+__pycache__
+
 *.csv
