@@ -24,18 +24,18 @@ def calculate_roc_and_auc(binned_df, bin_index):
     roc_auc = auc(fpr, tpr)
     return roc_auc, fpr, tpr
 
-def get_vos(binned_df, bin_width_map, num_bins = 100):
+def get_vus(binned_df, bin_width_map, num_bins = 100):
     auc_list = []
     for bin_index in range(num_bins):
         auc, _, _ = calculate_roc_and_auc(binned_df, bin_index)
         auc_list.append(auc)
     
-    vos = 0
+    vus = 0
     for i, auc in enumerate(auc_list):
-        vos += auc * bin_width_map[i]
-    return vos
+        vus += auc * bin_width_map[i]
+    return vus
 
-def plot_vos(binned_df, bin_width_map, num_bins = 100):
+def plot_vus(binned_df, bin_width_map, num_bins = 100):
     print("Generating 3D plot...")
     fig = plt.figure(figsize=(14, 10))
     ax = fig.add_subplot(111, projection='3d')
@@ -65,7 +65,6 @@ def plot_vos(binned_df, bin_width_map, num_bins = 100):
                 print(f"Error: {e}")
                 print("This bin will be skipped.\n")
 
-    # --- 5. Style the Plot ---
 
     # Plot a semi-transparent plane representing "random chance" where TPR = FPR.
     # In our new coordinate system, this is the plane where z = y.
