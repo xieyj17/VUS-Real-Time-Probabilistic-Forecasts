@@ -77,5 +77,5 @@ def clean_nba_data(input_df):
     df = normalize_time(input_df)
     df = actual_results(df)
     df = df[df["Quarter"] <= 4] # remove overtime
-    df = df[["game_num", "normalized_time", "home_WP", "actual_result"]].drop_duplicates()
+    df = df[["game_num", "normalized_time", "home_WP", "actual_result", "home", "away"]].drop_duplicates()
     return df

@@ -3,7 +3,7 @@ import numpy as np
 from utils import clean_nba_data
 from vus import generate_binned_df, get_vus, plot_vus
 
-raw_data = pd.read_csv("nba_2018.csv")
+raw_data = pd.read_csv("nba_2019.csv")
 raw_data.head()
 
 df = clean_nba_data(raw_data)
