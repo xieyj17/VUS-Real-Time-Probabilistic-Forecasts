@@ -54,8 +54,8 @@ def fit_dynamic_benchmark(df, model_features):
     return model_df
 
 
-def prepare_benchmark_data():
-    game_df = pd.read_csv('nba_2019.csv')
+def prepare_benchmark_data(year='2018', num_bins = 100):
+    game_df = pd.read_csv(f'nba_{year}.csv')
     cleaned_df = clean_nba_data(game_df)
 
     cols_to_relink = ['game_num']
@@ -71,7 +71,7 @@ def prepare_benchmark_data():
     full_game_df['date'] = pd.to_datetime(full_game_df['game_date']).dt.strftime('%Y-%m-%d')
 
     elo_df = pd.read_csv('nba_elo.csv')
-    elo_df = elo_df[elo_df['season'] == 2019]
+    elo_df = elo_df[elo_df['season'] == int(year)]
     elo_df['home_team'] = elo_df['team1'].map(TEAM_NAME_MAP)
     elo_df['away_team'] = elo_df['team2'].map(TEAM_NAME_MAP)
     elo_merge_cols = ['home_team', 'away_team']
@@ -109,9 +109,6 @@ def prepare_benchmark_data():
     merged_df['elo_prob1'].fillna(0.5, inplace=True)
 
 
-
-    # Bin the data once to be used by dynamic models
-    num_bins = 100
     merged_df['time_bin'], bin_map_check = pd.qcut(merged_df['normalized_time'], num_bins, labels=False, duplicates='drop', retbins=True)
 
     merged_df['score_diff'] = merged_df['home'] - merged_df['away']
